@@ -1,13 +1,12 @@
-
 #[cfg(feature = "ML")]
 pub mod ml;
 
-use std::fmt::{Display, Formatter};
 #[cfg(feature = "ML")]
 use ml::MachineLearningInferenceTest;
+use std::fmt::{Display, Formatter};
 
 pub struct TestResult {
-   seconds: f64,
+    seconds: f64,
     accuracy: f32,
 }
 
@@ -29,7 +28,7 @@ pub trait BenchmarkTest {
 pub fn run() {
     #[cfg(feature = "ML")]
     {
-        let test = MachineLearningInferenceTest::new();
+        let test = MachineLearningInferenceTest::new().map_err(|x| eprintln!("{:?}", x)).unwrap();
         println!("{}: {}", test.name(), test.run());
     }
 }
