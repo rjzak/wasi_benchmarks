@@ -1,8 +1,11 @@
 #[cfg(feature = "ML")]
 pub mod ml;
 
+pub mod pi;
+
 #[cfg(feature = "ML")]
 use ml::MachineLearningInferenceTest;
+use pi::PiCalcTest;
 use std::fmt::{Display, Formatter};
 
 pub struct TestResult {
@@ -26,6 +29,8 @@ pub trait BenchmarkTest {
 }
 
 pub fn run() {
+    let pi_test = PiCalcTest::new();
+    println!("{}: {}", pi_test.name(), pi_test.run());
     #[cfg(feature = "ML")]
     {
         let test = MachineLearningInferenceTest::new().map_err(|x| eprintln!("{:?}", x)).unwrap();
